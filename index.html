@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grundlagen der KI – Interaktiver Kurs</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --border: #e2e8f0;
+      --accent: #f1f5f9;
+      --success: #16a34a;
+      --error: #dc2626;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0 1rem;
+    }
+
+    header {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 0 1.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--accent);
+      color: var(--muted);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    p.lead {
+      color: var(--muted);
+      font-size: 1.125rem;
+    }
+
+    /* Fortschrittsanzeige */
+    .progress-box {
+      margin-top: 1.5rem;
+      background: var(--card-bg);
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Kapitel-Akkordeon */
+    .chapter-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .chapter-header {
+      padding: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      background: #fff;
+    }
+
+    .chapter-header:hover {
+      background: var(--accent);
+    }
+
+    .chapter-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .chapter-subtitle {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .chevron {
+      font-size: 1.25rem;
+      transition: transform 0.2s ease;
+    }
+
+    .chapter-card.open .chevron {
+      transform: rotate(90deg);
+    }
+
+    .chapter-content {
+      display: none;
+      padding: 1.25rem;
+      border-top: 1px solid var(--border);
+      background: #fafafa;
+    }
+
+    .chapter-card.open .chapter-content {
+      display: block;
+    }
+
+    /* Quiz-Box im Stil von Elements of AI */
+    .exercise-box {
+      margin-top: 1rem;
+      background: #ffffff;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .exercise-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.15s;
+    }
+
+    .option-label:hover {
+      background: var(--accent);
+    }
+
+    button.btn-check {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    button.btn-check:hover {
+      background: var(--primary-hover);
+    }
+
+    .feedback {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .feedback.correct {
+      color: var(--success);
+      display: block;
+    }
+
+    .feedback.wrong {
+      color: var(--error);
+      display: block;
+    }
+
+    footer {
+      max-width: 900px;
+      margin: 3rem auto 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="badge">Lernmodul • Berufliche Bildung</span>
+    <h1>Grundlagen der Künstlichen Intelligenz</h1>
+    <p class="lead">Ein interaktiver Leitfaden: Verstehen, Hinterfragen und Anwenden im Unterricht.</p>
+
+    <div class="progress-box">
+      <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600;">
+        <span>Gesamtfortschritt</span>
+        <span id="progress-text">0 von 3 Aufgaben gelöst</span>
+      </div>
+      <div class="progress-bar">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Kapitel 1 -->
+    <div class="chapter-card open">
+      <div class="chapter-header" onclick="toggleChapter(this)">
+        <div>
+          <div class="chapter-title">Kapitel 1: Was ist Künstliche Intelligenz?</div>
+          <div class="chapter-subtitle">Definitionen, Abgrenzung und typische Mythen</div>
+        </div>
+        <div class="chevron">›</div>
+      </div>
+      <div class="chapter-content">
+        <p>Künstliche Intelligenz (KI) bezeichnet Verfahren, die es Computern ermöglichen, Aufgaben zu lösen, die normalerweise menschliche Urteils- oder Lernfähigkeit erfordern. Dabei unterscheidet man grundsätzlich zwischen symbolischer Logik und maschinellem Lernen.</p>
+        
+        <div class="exercise-box">
+          <div class="exercise-title">Übungsaufgabe 1.1: Begriffsbestimmung</div>
+          <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Welche Aussage beschreibt maschinelles Lernen am treffendsten?</p>
+          <div class="options">
+            <label class="option-label">
+              <input type="radio" name="q1" value="wrong"> Ein Mensch programmiert jede Wenn-Dann-Regel Schritt für Schritt manuell.
+            </label>
+            <label class="option-label">
+              <input type="radio" name="q1" value="correct"> Das System erkennt eigenständig statistische Muster und Regeln aus Beispieldaten.
+            </label>
+            <label class="option-label">
+              <input type="radio" name="q1" value="wrong"> Ein Rechner, der Gefühle und ein echtes Bewusstsein entwickelt hat.
+            </label>
+          </div>
+          <button class="btn-check" onclick="checkAnswer(1)">Antwort prüfen</button>
+          <div id="feedback-1" class="feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kapitel 2 -->
+    <div class="chapter-card">
+      <div class="chapter-header" onclick="toggleChapter(this)">
+        <div>
+          <div class="chapter-title">Kapitel 2: Problemlösung & Algorithmen</div>
+          <div class="chapter-subtitle">Suchverfahren, Navigation und Entscheidungsbäume</div>
+        </div>
+        <div class="chevron">›</div>
+      </div>
+      <div class="chapter-content">
+        <p>Frühe KI-Systeme basierten vor allem auf systematischen Suchalgorithmen – vergleichbar mit einem Navigationssystem, das unter tausenden Routenoptionen die schnellste Verbindung berechnet.</p>
+        
+        <div class="exercise-box">
+          <div class="exercise-title">Übungsaufgabe 2.1: Navigation im Alltag</div>
+          <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Welche Information benötigt ein einfacher Graph-Suchalgorithmus für Routenplanung mindestens?</p>
+          <div class="options">
+            <label class="option-label">
+              <input type="radio" name="q2" value="wrong"> Ein neuronales Netz zur Bilderkennung von Straßenschildern.
+            </label>
+            <label class="option-label">
+              <input type="radio" name="q2" value="correct"> Knotenpunkte (Orte), Kanten (Straßen) und deren Verbindungskosten (z. B. Distanz oder Fahrzeit).
+            </label>
+          </div>
+          <button class="btn-check" onclick="checkAnswer(2)">Antwort prüfen</button>
+          <div id="feedback-2" class="feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kapitel 3 -->
+    <div class="chapter-card">
+      <div class="chapter-header" onclick="toggleChapter(this)">
+        <div>
+          <div class="chapter-title">Kapitel 3: Gesellschaftliche Auswirkungen & Ethik</div>
+          <div class="chapter-subtitle">Datenschutz, Halluzinationen und Verantwortung</div>
+        </div>
+        <div class="chevron">›</div>
+      </div>
+      <div class="chapter-content">
+        <p>KI-Modelle sind nie völlig neutral: Trainingsdaten können gesellschaftliche Verzerrungen (Bias) widerspiegeln. Zudem können generative Modelle überzeugend klingende Falschinformationen („Halluzinationen“) generieren.</p>
+        
+        <div class="exercise-box">
+          <div class="exercise-title">Übungsaufgabe 3.1: Kritisches Prüfen</div>
+          <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Warum dürfen KI-Ergebnisse in Schule und Beruf nicht unkritisch übernommen werden?</p>
+          <div class="options">
+            <label class="option-label">
+              <input type="radio" name="q3" value="correct"> Weil Sprachmodelle auf Wahrscheinlichkeiten basieren und plausible, aber sachlich falsche Antworten liefern können.
+            </label>
+            <label class="option-label">
+              <input type="radio" name="q3" value="wrong"> Weil KI-Systeme absichtlich lügen, um Nutzer zu täuschen.
+            </label>
+          </div>
+          <button class="btn-check" onclick="checkAnswer(3)">Antwort prüfen</button>
+          <div id="feedback-3" class="feedback"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>Unterrichtsmaterial für Lernzwecke</span>
+    <span>Frei nutzbare Vorlage (Single-File)</span>
+  </footer>
+
+  <script>
+    // Klapp
