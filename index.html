@@ -3,351 +3,612 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grundlagen der KI – Interaktiver Kurs</title>
+  <title>Kursübersicht – Elements of AI (Demo)</title>
   <style>
     :root {
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #0f172a;
-      --muted: #475569;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --border: #e2e8f0;
-      --accent: #f1f5f9;
-      --success: #16a34a;
-      --error: #dc2626;
+      --bg-dark: #000000;
+      --bg-card: #111111;
+      --bg-card-hover: #1a1a1a;
+      --text-white: #ffffff;
+      --text-gray: #8e8e93;
+      --border-dark: #27272a;
+      --accent-blue: #0071e3;
+      --accent-green: #30d158;
+      --pill-bg: #1c1c1e;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 0 1rem;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
-    header {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2.5rem 0 1.5rem;
-      border-bottom: 2px solid var(--border);
+    /* Top Navigation Bar */
+    nav {
+      height: 64px;
+      border-bottom: 1px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    .badge {
+    .nav-brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .nav-brand span {
       display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: var(--text-white);
+      border-radius: 50%;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-white);
+    }
+
+    .btn-login {
+      background: transparent;
+      border: 1px solid var(--border-dark);
+      color: var(--text-white);
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-login:hover {
+      background: var(--pill-bg);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* Hero / Banner */
+    .hero {
+      margin-bottom: 3.5rem;
+    }
+
+    .badge-course {
+      display: inline-block;
+      background: var(--pill-bg);
+      border: 1px solid var(--border-dark);
+      color: var(--text-gray);
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      background: var(--accent);
-      color: var(--muted);
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-      margin-bottom: 0.75rem;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
     }
 
-    h1 {
-      font-size: 2.25rem;
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
       font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: var(--text-gray);
+      font-size: 1.15rem;
+      max-width: 650px;
+    }
+
+    /* Course Grid */
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .chapter-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .chapter-card:hover {
+      background: var(--bg-card-hover);
+      border-color: #3f3f46;
+      transform: translateY(-2px);
+    }
+
+    .chapter-number {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .chapter-heading {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #d4d4d8;
+      transition: all 0.15s;
+    }
+
+    .section-item:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: var(--border-dark);
+      color: var(--text-white);
+    }
+
+    .section-score {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      background: var(--pill-bg);
+      color: var(--text-gray);
+    }
+
+    .section-score.done {
+      background: rgba(48, 209, 88, 0.15);
+      color: var(--accent-green);
+    }
+
+    .btn-start-chapter {
+      width: 100%;
+      background: var(--text-white);
+      color: #000000;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: opacity 0.15s;
+    }
+
+    .btn-start-chapter:hover {
+      opacity: 0.9;
+    }
+
+    /* Modal / Lesson Detail View */
+    .lesson-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(16px);
+      z-index: 200;
+      display: none;
+      overflow-y: auto;
+      padding: 2rem 1rem;
+    }
+
+    .lesson-overlay.active {
+      display: flex;
+      justify-content: center;
+    }
+
+    .lesson-modal {
+      background: #121214;
+      border: 1px solid var(--border-dark);
+      border-radius: 14px;
+      max-width: 720px;
+      width: 100%;
+      margin: auto;
+      padding: 2.5rem;
+      position: relative;
+    }
+
+    .btn-close-modal {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--pill-bg);
+      border: 1px solid var(--border-dark);
+      color: var(--text-white);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    .lesson-modal h2 {
+      font-size: 1.8rem;
       letter-spacing: -0.02em;
       margin-bottom: 0.5rem;
     }
 
-    p.lead {
-      color: var(--muted);
-      font-size: 1.125rem;
+    .lesson-modal .sub-title {
+      color: var(--text-gray);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
     }
 
-    /* Fortschrittsanzeige */
-    .progress-box {
+    .lesson-body {
+      color: #d4d4d8;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .quiz-container {
+      background: #09090b;
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 1.5rem;
       margin-top: 1.5rem;
-      background: var(--card-bg);
-      padding: 1rem 1.25rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
     }
 
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: var(--border);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: var(--primary);
-      transition: width 0.3s ease;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    /* Kapitel-Akkordeon */
-    .chapter-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-    }
-
-    .chapter-header {
-      padding: 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-      background: #fff;
-    }
-
-    .chapter-header:hover {
-      background: var(--accent);
-    }
-
-    .chapter-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-
-    .chapter-subtitle {
-      font-size: 0.875rem;
-      color: var(--muted);
-    }
-
-    .chevron {
-      font-size: 1.25rem;
-      transition: transform 0.2s ease;
-    }
-
-    .chapter-card.open .chevron {
-      transform: rotate(90deg);
-    }
-
-    .chapter-content {
-      display: none;
-      padding: 1.25rem;
-      border-top: 1px solid var(--border);
-      background: #fafafa;
-    }
-
-    .chapter-card.open .chapter-content {
-      display: block;
-    }
-
-    /* Quiz-Box im Stil von Elements of AI */
-    .exercise-box {
-      margin-top: 1rem;
-      background: #ffffff;
-      padding: 1.25rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-    }
-
-    .exercise-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-    }
-
-    .options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+    .quiz-question {
+      font-weight: 600;
+      font-size: 1rem;
       margin-bottom: 1rem;
+      color: var(--text-white);
     }
 
-    .option-label {
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .quiz-opt {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      padding: 0.6rem 0.8rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
+      gap: 0.75rem;
+      background: var(--pill-bg);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-dark);
       cursor: pointer;
       font-size: 0.95rem;
-      transition: background 0.15s;
+      color: #e4e4e7;
     }
 
-    .option-label:hover {
-      background: var(--accent);
+    .quiz-opt:hover {
+      background: #27272a;
     }
 
-    button.btn-check {
-      background: var(--primary);
+    .btn-submit-answer {
+      background: var(--accent-blue);
       color: #fff;
       border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
       font-weight: 600;
-      font-size: 0.875rem;
+      font-size: 0.9rem;
       cursor: pointer;
     }
 
-    button.btn-check:hover {
-      background: var(--primary-hover);
-    }
-
-    .feedback {
-      margin-top: 0.75rem;
+    .quiz-feedback {
+      margin-top: 1rem;
       font-size: 0.9rem;
       font-weight: 600;
       display: none;
     }
 
-    .feedback.correct {
-      color: var(--success);
+    .quiz-feedback.success {
       display: block;
+      color: var(--accent-green);
     }
 
-    .feedback.wrong {
-      color: var(--error);
+    .quiz-feedback.error {
       display: block;
-    }
-
-    footer {
-      max-width: 900px;
-      margin: 3rem auto 2rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.85rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
+      color: #ef4444;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <span class="badge">Lernmodul • Berufliche Bildung</span>
-    <h1>Grundlagen der Künstlichen Intelligenz</h1>
-    <p class="lead">Ein interaktiver Leitfaden: Verstehen, Hinterfragen und Anwenden im Unterricht.</p>
-
-    <div class="progress-box">
-      <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600;">
-        <span>Gesamtfortschritt</span>
-        <span id="progress-text">0 von 3 Aufgaben gelöst</span>
-      </div>
-      <div class="progress-bar">
-        <div id="progress-fill" class="progress-fill"></div>
-      </div>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-brand" onclick="closeLesson()">
+      <span></span> Elements of AI
     </div>
-  </header>
+    <div class="nav-links">
+      <a class="nav-link active" onclick="closeLesson()">Kursübersicht</a>
+      <a class="nav-link" onclick="openLesson(1, 1)">Einführung in die KI</a>
+      <a class="nav-link" onclick="alert('Building AI folgt im nächsten Kurshalbjahr!')">Building AI</a>
+      <button class="btn-login" onclick="alert('Kein Login für Schüler nötig! Dein Fortschritt wird lokal im Browser gespeichert.')">Konto</button>
+    </div>
+  </nav>
 
-  <main>
-    <!-- Kapitel 1 -->
-    <div class="chapter-card open">
-      <div class="chapter-header" onclick="toggleChapter(this)">
+  <div class="container">
+    <!-- Hero Header -->
+    <div class="hero">
+      <span class="badge-course">Onlinekurs • Kostenlos</span>
+      <h1>Kursübersicht</h1>
+      <p>Lerne die Grundlagen der Künstlichen Intelligenz. Klicke auf ein Kapitel oder eine Übungseinheit, um direkt interaktiv zu starten.</p>
+    </div>
+
+    <!-- Modul-Raster (Kapitel 1 bis 3) -->
+    <div class="course-grid">
+
+      <!-- Kapitel 1 -->
+      <div class="chapter-card">
         <div>
-          <div class="chapter-title">Kapitel 1: Was ist Künstliche Intelligenz?</div>
-          <div class="chapter-subtitle">Definitionen, Abgrenzung und typische Mythen</div>
+          <div class="chapter-number">Kapitel 1</div>
+          <div class="chapter-heading">Was ist KI?</div>
+          <ul class="section-list">
+            <li class="section-item" onclick="openLesson(1, 1)">
+              <span>I. Wie soll KI definiert werden?</span>
+              <span id="score-1-1" class="section-score">0/1</span>
+            </li>
+            <li class="section-item" onclick="openLesson(1, 2)">
+              <span>II. Verwandte Gebiete & Mythen</span>
+              <span id="score-1-2" class="section-score">0/1</span>
+            </li>
+            <li class="section-item" onclick="openLesson(1, 3)">
+              <span>III. Die Philosophie der KI</span>
+              <span id="score-1-3" class="section-score">0/1</span>
+            </li>
+          </ul>
         </div>
-        <div class="chevron">›</div>
+        <button class="btn-start-chapter" onclick="openLesson(1, 1)">Kapitel 1 starten →</button>
       </div>
-      <div class="chapter-content">
-        <p>Künstliche Intelligenz (KI) bezeichnet Verfahren, die es Computern ermöglichen, Aufgaben zu lösen, die normalerweise menschliche Urteils- oder Lernfähigkeit erfordern. Dabei unterscheidet man grundsätzlich zwischen symbolischer Logik und maschinellem Lernen.</p>
-        
-        <div class="exercise-box">
-          <div class="exercise-title">Übungsaufgabe 1.1: Begriffsbestimmung</div>
-          <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Welche Aussage beschreibt maschinelles Lernen am treffendsten?</p>
-          <div class="options">
-            <label class="option-label">
-              <input type="radio" name="q1" value="wrong"> Ein Mensch programmiert jede Wenn-Dann-Regel Schritt für Schritt manuell.
-            </label>
-            <label class="option-label">
-              <input type="radio" name="q1" value="correct"> Das System erkennt eigenständig statistische Muster und Regeln aus Beispieldaten.
-            </label>
-            <label class="option-label">
-              <input type="radio" name="q1" value="wrong"> Ein Rechner, der Gefühle und ein echtes Bewusstsein entwickelt hat.
-            </label>
-          </div>
-          <button class="btn-check" onclick="checkAnswer(1)">Antwort prüfen</button>
-          <div id="feedback-1" class="feedback"></div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Kapitel 2 -->
-    <div class="chapter-card">
-      <div class="chapter-header" onclick="toggleChapter(this)">
+      <!-- Kapitel 2 -->
+      <div class="chapter-card">
         <div>
-          <div class="chapter-title">Kapitel 2: Problemlösung & Algorithmen</div>
-          <div class="chapter-subtitle">Suchverfahren, Navigation und Entscheidungsbäume</div>
+          <div class="chapter-number">Kapitel 2</div>
+          <div class="chapter-heading">Reale Anwendungen</div>
+          <ul class="section-list">
+            <li class="section-item" onclick="openLesson(2, 1)">
+              <span>I. Chancen & Wahrscheinlichkeiten</span>
+              <span id="score-2-1" class="section-score">0/1</span>
+            </li>
+            <li class="section-item" onclick="openLesson(2, 2)">
+              <span>II. Der Satz von Bayes</span>
+              <span id="score-2-2" class="section-score">0/1</span>
+            </li>
+            <li class="section-item" onclick="openLesson(2, 3)">
+              <span>III. Naiver Bayes-Klassifikator</span>
+              <span id="score-2-3" class="section-score">0/1</span>
+            </li>
+          </ul>
         </div>
-        <div class="chevron">›</div>
+        <button class="btn-start-chapter" onclick="openLesson(2, 1)">Kapitel 2 starten →</button>
       </div>
-      <div class="chapter-content">
-        <p>Frühe KI-Systeme basierten vor allem auf systematischen Suchalgorithmen – vergleichbar mit einem Navigationssystem, das unter tausenden Routenoptionen die schnellste Verbindung berechnet.</p>
-        
-        <div class="exercise-box">
-          <div class="exercise-title">Übungsaufgabe 2.1: Navigation im Alltag</div>
-          <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Welche Information benötigt ein einfacher Graph-Suchalgorithmus für Routenplanung mindestens?</p>
-          <div class="options">
-            <label class="option-label">
-              <input type="radio" name="q2" value="wrong"> Ein neuronales Netz zur Bilderkennung von Straßenschildern.
-            </label>
-            <label class="option-label">
-              <input type="radio" name="q2" value="correct"> Knotenpunkte (Orte), Kanten (Straßen) und deren Verbindungskosten (z. B. Distanz oder Fahrzeit).
-            </label>
-          </div>
-          <button class="btn-check" onclick="checkAnswer(2)">Antwort prüfen</button>
-          <div id="feedback-2" class="feedback"></div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Kapitel 3 -->
-    <div class="chapter-card">
-      <div class="chapter-header" onclick="toggleChapter(this)">
+      <!-- Kapitel 3 -->
+      <div class="chapter-card">
         <div>
-          <div class="chapter-title">Kapitel 3: Gesellschaftliche Auswirkungen & Ethik</div>
-          <div class="chapter-subtitle">Datenschutz, Halluzinationen und Verantwortung</div>
+          <div class="chapter-number">Kapitel 3</div>
+          <div class="chapter-heading">Maschinelles Lernen</div>
+          <ul class="section-list">
+            <li class="section-item" onclick="openLesson(3, 1)">
+              <span>I. Lineare Regression & Daten</span>
+              <span id="score-3-1" class="section-score">0/1</span>
+            </li>
+            <li class="section-item" onclick="openLesson(3, 2)">
+              <span>II. Der Nächste-Nachbarn-Algorithmus</span>
+              <span id="score-3-2" class="section-score">0/1</span>
+            </li>
+            <li class="section-item" onclick="openLesson(3, 3)">
+              <span>III. Gesellschaftliche Auswirkungen</span>
+              <span id="score-3-3" class="section-score">0/1</span>
+            </li>
+          </ul>
         </div>
-        <div class="chevron">›</div>
+        <button class="btn-start-chapter" onclick="openLesson(3, 1)">Kapitel 3 starten →</button>
       </div>
-      <div class="chapter-content">
-        <p>KI-Modelle sind nie völlig neutral: Trainingsdaten können gesellschaftliche Verzerrungen (Bias) widerspiegeln. Zudem können generative Modelle überzeugend klingende Falschinformationen („Halluzinationen“) generieren.</p>
-        
-        <div class="exercise-box">
-          <div class="exercise-title">Übungsaufgabe 3.1: Kritisches Prüfen</div>
-          <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Warum dürfen KI-Ergebnisse in Schule und Beruf nicht unkritisch übernommen werden?</p>
-          <div class="options">
-            <label class="option-label">
-              <input type="radio" name="q3" value="correct"> Weil Sprachmodelle auf Wahrscheinlichkeiten basieren und plausible, aber sachlich falsche Antworten liefern können.
-            </label>
-            <label class="option-label">
-              <input type="radio" name="q3" value="wrong"> Weil KI-Systeme absichtlich lügen, um Nutzer zu täuschen.
-            </label>
-          </div>
-          <button class="btn-check" onclick="checkAnswer(3)">Antwort prüfen</button>
-          <div id="feedback-3" class="feedback"></div>
-        </div>
+
+    </div>
+  </div>
+
+  <!-- Interaktives Lern-Overlay / Modal -->
+  <div id="lessonOverlay" class="lesson-overlay">
+    <div class="lesson-modal">
+      <button class="btn-close-modal" onclick="closeLesson()">✕</button>
+      <div id="lessonHeader">
+        <h2 id="lessonTitle">Lektionstitel</h2>
+        <div id="lessonSub" class="sub-title">Kapiteluntertitel</div>
+      </div>
+      <div id="lessonContent" class="lesson-body">
+        Textinhalt der Lektion...
+      </div>
+      
+      <!-- Quiz-Box der Lektion -->
+      <div class="quiz-container">
+        <div id="quizQuestion" class="quiz-question">Frage...</div>
+        <div id="quizOptions" class="quiz-options"></div>
+        <button class="btn-submit-answer" onclick="evaluateQuiz()">Antwort einreichen</button>
+        <div id="quizFeedback" class="quiz-feedback"></div>
       </div>
     </div>
-  </main>
-
-  <footer>
-    <span>Unterrichtsmaterial für Lernzwecke</span>
-    <span>Frei nutzbare Vorlage (Single-File)</span>
-  </footer>
+  </div>
 
   <script>
-    // Klapp
+    // Lektions-Datenbank
+    const lessonsData = {
+      "1-1": {
+        title: "I. Wie soll KI definiert werden?",
+        sub: "Kapitel 1 • Was ist KI?",
+        text: "Künstliche Intelligenz ist kein starres, fest umrissenes Feld. Im Kern geht es um autonome Systeme, die in wechselnden Umgebungen Entscheidungen treffen können. Man unterscheidet hierbei insbesondere zwischen Autonomie (selbstständiges Handeln) und Adaptivität (die Fähigkeit, aus Erfahrungen zu lernen).",
+        question: "Was bedeutet 'Adaptivität' bei einem KI-System?",
+        options: [
+          { text: "Dass das System seine Reaktionen anhand von neuen Daten und Erfahrungen verbessert.", correct: true },
+          { text: "Dass das System physisch bewegliche Roboterteile besitzt.", correct: false },
+          { text: "Dass das System ohne Strom betrieben werden kann.", correct: false }
+        ]
+      },
+      "1-2": {
+        title: "II. Verwandte Gebiete & Mythen",
+        sub: "Kapitel 1 • Was ist KI?",
+        text: "Häufig werden Begriffe wie Data Science, Machine Learning und KI vermischt. Maschinelles Lernen ist jedoch lediglich ein Teilbereich der KI, während Data Science Methoden zur Erkennung von Mustern aus Daten bereitstellt.",
+        question: "Welche Aussage über Machine Learning (ML) ist wahr?",
+        options: [
+          { text: "ML ist ein Teilbereich der Künstlichen Intelligenz.", correct: true },
+          { text: "ML und KI sind zwei vollkommen unzusammenhängende Felder.", correct: false }
+        ]
+      },
+      "1-3": {
+        title: "III. Die Philosophie der KI",
+        sub: "Kapitel 1 • Was ist KI?",
+        text: "Schon Alan Turing stellte 1950 die berühmte Frage: 'Können Maschinen denken?'. Der Turing-Test versucht herauszufinden, ob ein Mensch im Gespräch erkennen kann, ob sein Gegenüber eine Maschine oder ein Mensch ist.",
+        question: "Was prüft der klassische Turing-Test?",
+        options: [
+          { text: "Ob die Antworten eines Computers von denen eines Menschen ununterscheidbar sind.", correct: true },
+          { text: "Die Rechengeschwindigkeit eines Prozessors.", correct: false }
+        ]
+      },
+      "2-1": {
+        title: "I. Chancen & Wahrscheinlichkeiten",
+        sub: "Kapitel 2 • Reale Anwendungen",
+        text: "In der realen Welt sind Informationen selten eindeutig oder zu 100% sicher. KI-Modelle arbeiten deshalb nahezu immer mit Wahrscheinlichkeitsrechnung und statistischen Vorhersagen.",
+        question: "Warum spielt Wahrscheinlichkeitsrechnung eine Schlüsselrolle in moderner KI?",
+        options: [
+          { text: "Weil Sensoren und Realdaten immer ein gewisses Maß an Unsicherheit und Rauschen beinhalten.", correct: true },
+          { text: "Weil Computer keine ganzen Zahlen verarbeiten können.", correct: false }
+        ]
+      }
+    };
+
+    let currentLessonKey = "1-1";
+
+    function openLesson(ch, sec) {
+      const key = `${ch}-${sec}`;
+      currentLessonKey = key;
+      const data = lessonsData[key] || {
+        title: `Lektion ${ch}.${sec}`,
+        sub: `Kapitel ${ch}`,
+        text: "Dieser Abschnitt befindet sich aktuell in Bearbeitung. Du kannst bereits Kapitel 1 bearbeiten!",
+        question: "Hast du verstanden, wie diese Demo funktioniert?",
+        options: [
+          { text: "Ja, alles klar!", correct: true },
+          { text: "Nein, noch unklar.", correct: false }
+        ]
+      };
+
+      document.getElementById('lessonTitle').textContent = data.title;
+      document.getElementById('lessonSub').textContent = data.sub;
+      document.getElementById('lessonContent').textContent = data.text;
+      document.getElementById('quizQuestion').textContent = data.question;
+
+      const optContainer = document.getElementById('quizOptions');
+      optContainer.innerHTML = '';
+      data.options.forEach((opt, idx) => {
+        const label = document.createElement('label');
+        label.className = 'quiz-opt';
+        label.innerHTML = `
+          <input type="radio" name="activeQuiz" value="${opt.correct}">
+          <span>${opt.text}</span>
+        `;
+        optContainer.appendChild(label);
+      });
+
+      const feedback = document.getElementById('quizFeedback');
+      feedback.style.display = 'none';
+      feedback.className = 'quiz-feedback';
+
+      document.getElementById('lessonOverlay').classList.add('active');
+    }
+
+    function closeLesson() {
+      document.getElementById('lessonOverlay').classList.remove('active');
+    }
+
+    function evaluateQuiz() {
+      const selected = document.querySelector('input[name="activeQuiz"]:checked');
+      const feedback = document.getElementById('quizFeedback');
+
+      if (!selected) {
+        feedback.textContent = "Bitte wähle zuerst eine Antwort aus.";
+        feedback.className = "quiz-feedback error";
+        return;
+      }
+
+      if (selected.value === "true") {
+        feedback.textContent = "✓ Hervorragend! Richtige Antwort.";
+        feedback.className = "quiz-feedback success";
+        
+        // Punktestand auf der Übersichtskarte aktualisieren
+        const scoreElem = document.getElementById(`score-${currentLessonKey}`);
+        if (scoreElem) {
+          scoreElem.textContent = "1/1";
+          scoreElem.classList.add('done');
+        }
+      } else {
+        feedback.textContent = "✗ Leider nicht richtig. Lies den Text oben noch einmal durch.";
+        feedback.className = "quiz-feedback error";
+      }
+    }
+  </script>
+</body>
+</html>
