@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BS:WI – Neues Beurteilungswesen Hamburg (ab 2026)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* BS:WI Corporate Design Primärfarben (Blau-Palette) */
+      --blau-1: #1C3D71; /* Headlines, Rahmen, Footer-Border */
+      --blau-2: #102141; /* Dunkler Hintergrund */
+      --blau-3: #1266B0; /* Untertitel, Links, Claim */
+      --blau-4: #008BC9; /* Akzent-Ränder, Buttons */
+      --blau-5: #41C0F0; /* Trennlinien, Highlights */
+      --blau-6: #A4DBF8; /* Tabellen-Rahmen */
+      --blau-7: #EAF6FE; /* Hintergründe (Info-Boxen, Header) */
+
+      /* Sekundärfarben */
+      --akzent: #E8FF00; /* Neongelb für Warnungen, Need-to-know */
+      --schwarz: #000000;
+      --dunkelgrau: #666666;
+      --hellgrau: #F6F6F6;
+      --weiss: #FFFFFF;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 2px 8px rgba(16, 33, 65, 0.06);
+      --shadow-md: 0 8px 24px rgba(16, 33, 65, 0.10);
+      --shadow-lg: 0 14px 36px rgba(16, 33, 65, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 88px;
+    }
+
+    body {
+      font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+      color: var(--schwarz);
+      background-color: #F4F8FB;
+      line-height: 1.65;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sticky Top Header im 3-Spalten-Stil der BS:WI */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 3px solid var(--blau-1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-bar-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--blau-1);
+      flex-shrink: 0;
+    }
+
+    .brand svg {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--blau-1);
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--blau-3);
+    }
+
+    /* Navigation */
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-item {
+      text-decoration: none;
+      color: var(--blau-1);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: var(--blau-7);
+      color: var(--blau-4);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-print {
+      background: var(--blau-1);
+      color: var(--weiss);
+      border: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-print:hover {
+      background: var(--blau-4);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--blau-2) 0%, var(--blau-1) 60%, var(--blau-3) 100%);
+      color: var(--weiss);
+      padding: 56px 24px 64px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 5px solid var(--blau-5);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(65, 192, 240, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .badge-neon {
+      background: var(--akzent);
+      color: var(--blau-2);
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 5px 12px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-glass {
+      background: rgba(255, 255, 255, 0.14);
+      color: var(--blau-6);
+      font-weight: 600;
+      font-size: 0.78rem;
+      padding: 5px 12px;
+      border-radius: 99px;
+      border: 1px solid rgba(164, 219, 248, 0.35);
+    }
+
+    .hero h1 {
+      font-size: 2.35rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      color: var(--blau-5);
+    }
+
+    .hero-lead {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.92);
+      margin-bottom: 28px;
+      max-width: 680px;
+    }
+
+    /* Search & Role Switcher in Hero */
+    .search-wrapper {
+      position: relative;
+      max-width: 560px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 15px 20px 15px 46px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--blau-5);
+      background: var(--weiss);
+      color: var(--blau-2);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--akzent);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      color: var(--blau-3);
+      pointer-events: none;
+    }
+
+    /* Quick Facts Card in Hero */
+    .hero-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(164, 219, 248, 0.3);
+      border-left: 5px solid var(--akzent);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+
+    .hero-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--akzent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-fact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.88rem;
+    }
+
+    .hero-fact-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.45;
+    }
+
+    .hero-fact-list li strong {
+      color: var(--blau-6);
+    }
+
+    /* Perspective Filter Bar */
+    .perspective-bar {
+      max-width: 1240px;
+      margin: -26px auto 32px;
+      padding: 0 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .perspective-inner {
+      background: var(--weiss);
+      border-radius: var(--radius-md);
+      padding: 14px 22px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--blau-6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .perspective-label {
+      font-weight: 700;
+      color: var(--blau-1);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .perspective-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .role-btn {
+      background: var(--hellgrau);
+      border: 2px solid transparent;
+      color: var(--blau-1);
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.83rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .role-btn:hover {
+      background: var(--blau-7);
+    }
+
+    .role-btn.active {
+      background: var(--blau-1);
+      color: var(--weiss);
+      border-color: var(--blau-4);
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 44px;
+    }
+
+    /* Section Card Wrapper */
+    .section-block {
+      background: var(--weiss);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-sm);
+      border-top: 4px solid var(--blau-1);
+    }
+
+    .section-header {
+      margin-bottom: 26px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--blau-7);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .section-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .section-kicker {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--blau-4);
+    }
+
+    .section-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--blau-1);
+    }
+
+    .section-subtitle {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--blau-3);
+    }
+
+    /* Official BS:WI Skill Components */
+    .bswi-task {
+      background: var(--hellgrau);
+      border: 2px solid var(--blau-4);
+      border-left-width: 6px;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 14px 0;
+    }
+
+    .bswi-task-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: var(--blau-1);
+      font-size: 1.02rem;
+    }
+
+    .bswi-badge {
+      background: var(--blau-1);
+      color: var(--weiss);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+
+    .bswi-info {
+      background: var(--blau-7);
+      border-left: 5px solid var(--blau-4);
+      border-radius: 0 10px 10px 0;
+      padding: 15px 20px;
+      margin: 14px 0;
+    }
+
+    .bswi-info h4 {
+      color: var(--blau-1);
+      font-size: 0.96rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bswi-needtoknow {
+      background: #FFFEF0;
+      border: 1px solid #E2E6A8;
+      border-left: 6px solid var(--akzent);
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+
+    .bswi-needtoknow h4 {
+      color: var(--blau-2);
+      font-size: 0.96rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lernziele-box {
+      background: linear-gradient(135deg, var(--blau-7) 0%, var(--weiss) 100%);
+      border: 2px solid var(--blau-4);
+      border-radius: 12px;
+      padding: 22px 26px;
+      margin: 16px 0;
+    }
+
+    .lernziele-box h3 {
+      color: var(--blau-1);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .formel-box {
+      background: var(--blau-1);
+      color: var(--weiss);
+      border-radius: 10px;
+      padding: 20px 24px;
+      text-align: center;
+      margin: 18px 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .formel-box .formel-main {
+      font-family: 'Times New Roman', Georgia, serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+      color: var(--akzent);
+    }
+
+    .formel-box .formel-sub {
+      font-size: 0.85rem;
+      color: var(--blau-6);
+      font-style: normal;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* Comparison Table (Alt vs Neu) */
+    .bswi-table-wrap {
+      overflow-x: auto;
+      margin: 16px 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--blau-6);
+    }
+
+    .bswi-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .bswi-table th {
+      background: var(--blau-1);
+      color: var(--weiss);
+      text-align: left;
+      padding: 13px 16px;
+      font-weight: 700;
+      border: 1px solid var(--blau-1);
+    }
+
+    .bswi-table td {
+      padding: 12px 16px;
+      border: 1px solid var(--blau-6);
+      vertical-align: top;
+    }
+
+    .bswi-table tr:nth-child(even) td {
+      background: var(--blau-7);
+    }
+
+    .bswi-table tr:nth-child(odd) td {
+      background: var(--weiss);
+    }
+
+    /* Competency Cards */
+    .comp-card {
+      background: var(--weiss);
+      border: 1.5px solid var(--blau-6);
+      border-top: 4px solid var(--blau-4);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .comp-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--blau-4);
+    }
+
+    .comp-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--blau-1);
+      color: var(--weiss);
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .comp-card h4 {
+      color: var(--blau-1);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .comp-card p {
+      font-size: 0.86rem;
+      color: #333;
+    }
+
+    .comp-tags {
+      margin-top: auto;
+      padding-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .comp-tag {
+      background: var(--blau-7);
+      color: var(--blau-3);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* Interactive Point Scale Explorer (0-6) */
+    .scale-selector {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .scale-btn {
+      background: var(--hellgrau);
+      border: 2px solid var(--blau-6);
+      border-radius: var(--radius-md);
+      padding: 14px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .scale-btn:hover {
+      border-color: var(--blau-4);
+      background: var(--blau-7);
+    }
+
+    .scale-btn.active {
+      background: var(--blau-1);
+      color: var(--weiss);
+      border-color: var(--blau-1);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .scale-pts {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      display: block;
+    }
+
+    .scale-zone {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .scale-detail-panel {
+      background: var(--blau-7);
+      border: 2px solid var(--blau-4);
+      border-radius: var(--radius-md);
+      padding: 22px 26px;
+      margin-bottom: 24px;
+    }
+
+    .scale-detail-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .scale-detail-badge {
+      background: var(--blau-1);
+      color: var(--akzent);
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 6px 16px;
+      border-radius: var(--radius-sm);
+    }
+
+    .scale-detail-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--blau-1);
+    }
+
+    /* Interactive Calculator */
+    .calc-box {
+      background: var(--hellgrau);
+      border: 2px solid var(--blau-6);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    .calc-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 60px;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .calc-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .calc-label {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--blau-1);
+    }
+
+    .calc-slider {
+      width: 100%;
+      accent-color: var(--blau-4);
+      cursor: pointer;
+    }
+
+    .calc-val {
+      font-weight: 800;
+      color: var(--blau-1);
+      background: var(--weiss);
+      border: 1px solid var(--blau-6);
+      border-radius: 6px;
+      text-align: center;
+      padding: 4px 8px;
+      font-size: 0.9rem;
+    }
+
+    .calc-result {
+      margin-top: 20px;
+      background: var(--blau-1);
+      color: var(--weiss);
+      padding: 20px 24px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .calc-grade-pill {
+      background: var(--akzent);
+      color: var(--blau-2);
+      font-size: 1.7rem;
+      font-weight: 800;
+      padding: 8px 22px;
+      border-radius: var(--radius-sm);
+      min-width: 90px;
+      text-align: center;
+    }
+
+    /* Process Timeline */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .step-card {
+      background: var(--hellgrau);
+      border: 1.5px solid var(--blau-6);
+      border-top: 4px solid var(--blau-3);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      position: relative;
+    }
+
+    .step-num {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--blau-4);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .step-card h4 {
+      color: var(--blau-1);
+      font-size: 0.93rem;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      font-size: 0.8rem;
+      color: #444;
+      line-height: 1.45;
+    }
+
+    /* Interactive Checklists */
+    .checklist {
+      list-style: none;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .checklist li label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .checklist li label:hover {
+      background: rgba(0, 139, 201, 0.08);
+    }
+
+    .checklist input[type="checkbox"] {
+      margin-top: 4px;
+      width: 17px;
+      height: 17px;
+      accent-color: var(--blau-1);
+      flex-shrink: 0;
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    details.faq-item {
+      border: 1.5px solid var(--blau-6);
+      border-radius: var(--radius-md);
+      background: var(--weiss);
+      overflow: hidden;
+    }
+
+    details.faq-item[open] {
+      border-color: var(--blau-4);
+      box-shadow: var(--shadow-sm);
+    }
+
+    details.faq-item summary {
+      padding: 16px 20px;
+      font-weight: 700;
+      color: var(--blau-1);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--blau-7);
+    }
+
+    details.faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.faq-item summary::after {
+      content: "＋";
+      font-weight: 800;
+      color: var(--blau-4);
+      font-size: 1.1rem;
+    }
+
+    details.faq-item[open] summary::after {
+      content: "－";
+    }
+
+    .faq-body {
+      padding: 18px 20px;
+      font-size: 0.9rem;
+      color: #222;
+      border-top: 1px solid var(--blau-6);
+    }
+
+    /* Intranet Path Breadcrumb */
+    .intranet-path {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: var(--blau-2);
+      color: var(--weiss);
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.88rem;
+      margin: 10px 0;
+    }
+
+    .intranet-path span.sep {
+      color: var(--akzent);
+      font-weight: 800;
+    }
+
+    /* Role filtering highlight classes */
+    .role-highlight-erst,
+    .role-highlight-lehrkraft {
+      transition: opacity 0.25s ease, outline 0.25s ease;
+    }
+
+    body.filter-erst .role-highlight-lehrkraft {
+      opacity: 0.45;
+    }
+    body.filter-erst .role-highlight-erst {
+      outline: 3px solid var(--blau-4);
+      outline-offset: 2px;
+    }
+
+    body.filter-lehrkraft .role-highlight-erst {
+      opacity: 0.45;
+    }
+    body.filter-lehrkraft .role-highlight-lehrkraft {
+      outline: 3px solid var(--blau-4);
+      outline-offset: 2px;
+    }
+
+    /* Official BS:WI Footer */
+    .bswi-footer {
+      background: var(--weiss);
+      border-top: 3px solid var(--blau-1);
+      padding: 36px 24px;
+      margin-top: 40px;
+    }
+
+    .bswi-footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .bswi-footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--blau-6);
+    }
+
+    .footer-author {
+      font-weight: 700;
+      color: var(--dunkelgrau);
+      font-size: 0.95rem;
+    }
+
+    .footer-claim {
+      font-style: italic;
+      font-weight: 700;
+      color: var(--blau-3);
+      font-size: 1.1rem;
+    }
+
+    .bswi-footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.82rem;
+      color: var(--dunkelgrau);
+    }
+
+    .bswi-footer-bottom a {
+      color: var(--blau-3);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .bswi-footer-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hidden by search */
+    .hidden-search {
+      display: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+      .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .timeline {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .grid-2, .grid-3, .timeline {
+        grid-template-columns: 1fr;
+      }
+      .scale-selector {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .calc-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+      .section-block {
+        padding: 22px;
+      }
+    }
+
+    @media print {
+      .top-bar, .perspective-bar, .search-wrapper, .calc-box, .btn-print {
+        display: none !important;
+      }
+      body {
+        background: var(--weiss);
+        font-size: 10.5pt;
+      }
+      .hero {
+        background: var(--blau-1) !important;
+        padding: 24px !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .section-block {
+        box-shadow: none;
+        border: 1px solid var(--blau-6);
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top-Bar im offiziellen BS:WI Design -->
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <a href="#" class="brand" aria-label="BS:WI Startseite">
+        <!-- Offizielles BS:WI Inline-SVG-Logo -->
+        <svg viewBox="0 0 692.7 566.9" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BS:WI Logo">
+          <defs>
+            <linearGradient id="g1" x1="399.7" y1="366.2" x2="1258.5" y2="80.8" gradientUnits="userSpaceOnUse">
+              <stop offset="0.3" stop-color="#41C0F0"/><stop offset="0.4" stop-color="#A4DBF8"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="212.7" y1="462.7" x2="-54.8" y2="242.1" gradientUnits="userSpaceOnUse">
+              <stop offset="0.3" stop-color="#067AA7"/><stop offset="0.6" stop-color="#41C0F0"/><stop offset="1" stop-color="#A4DBF8"/>
+            </linearGradient>
+            <linearGradient id="g3" x1="241.1" y1="340.2" x2="423.9" y2="424.6" gradientUnits="userSpaceOnUse">
+              <stop offset="0.1" stop-color="#067AA7"/><stop offset="0.3" stop-color="#41C0F0"/><stop offset="1" stop-color="#A4DBF8"/>
+            </linearGradient>
+            <linearGradient id="g4" x1="515.2" y1="15.2" x2="280.7" y2="716.7" gradientUnits="userSpaceOnUse">
+              <stop offset="0.1" stop-color="#0E66AF"/><stop offset="0.7" stop-color="#1B3D71"/>
+            </linearGradient>
+          </defs>
+          <path d="M689.4 0 616.1 18.8C603.2 22.1 593.8 31.7 590.4 44.5L450.2 566.9 624.9 566.9 689.4 0Z" fill="url(#g1)"/>
+          <path d="M156.2 136.4 29.8 168.7C13.7 172.9 0 189.5 0 206.2L0 567 156.2 567 156.2 136.4Z" fill="url(#g2)"/>
+          <path d="M220.5 566.9 385.9 566.9 369.5 163.2 248.5 194.2 220.5 566.9Z" fill="url(#g3)"/>
+          <path d="M248.5 194.2 0 566.9 156.2 566.9 369.5 163.2 248.4 194.2ZM460.2 58.7 220.5 567 385.9 567 559.5 33.3 460.2 58.7ZM680 157.5 586.1 60.7 450.3 567 661.6 567 692.6 185.5C693.6 173 689.1 167 680 157.6Z" fill="url(#g4)"/>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-title">BS:WI · Beurteilungswesen</span>
+          <span class="brand-subtitle">Informationsportal für Kollegium &amp; Erstbeurteiler:innen</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Hauptnavigation">
+        <a href="#neuerungen" class="nav-item">1. Was ist neu?</a>
+        <a href="#rollen" class="nav-item">2. Rollen</a>
+        <a href="#anlaesse" class="nav-item">3. Anlässe &amp; Fristen</a>
+        <a href="#kompetenzen" class="nav-item">4. 6 Kompetenzen</a>
+        <a href="#bewertung" class="nav-item">5. Punkteskala &amp; Rechner</a>
+        <a href="#ablauf" class="nav-item">6. Ablauf &amp; Gespräch</a>
+        <a href="#faq" class="nav-item">7. Intranet &amp; FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-print" onclick="window.print()" title="Seite als Handout / PDF drucken">
+          🖨️ Drucken / PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge-row">
+          <span class="badge-neon">Gültig seit 01.01.2026</span>
+          <span class="badge-glass">BeurtVO Hamburg · BSB &amp; HIBB</span>
+          <span class="badge-glass">BS:WI (BS05)</span>
+        </div>
+        <h1>Das neue <span>Beurteilungswesen</span> an der BS:WI Hamburg</h1>
+        <p class="hero-lead">
+          Kompakte Orientierung zur neuen Hamburger Beurteilungsverordnung (BeurtVO): Alle Kriterien, Punkteskalen, Fristen und Abläufe für <strong>zu beurteilende Lehrkräfte</strong> und <strong>Erstbeurteiler:innen</strong> auf einen Blick.
+        </p>
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input
+            type="search"
+            id="searchInput"
+            class="search-input"
+            placeholder="Schnellsuche: z. B. Statusamt, Punkte, Anlassbeurteilung, Drittbeitrag, A** ..."
+            aria-label="Inhalte auf der Seite durchsuchen"
+          >
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>⚡ Das Wichtigste in 30 Sekunden</h3>
+        <ul class="hero-fact-list">
+          <li><span>✅</span> <div><strong>Rechtsverordnung statt Richtlinie:</strong> Die neue <em>BeurtVO</em> gilt verbindlich für Beamt:innen und analog für Tarifbeschäftigte.</div></li>
+          <li><span>🎯</span> <div><strong>6 einheitliche Kernkompetenzen:</strong> Gestärkter Fokus auf digitale Kompetenz, Innovation und Diversität.</div></li>
+          <li><span>📊</span> <div><strong>Neue 0–6 Punkteskala:</strong> Differenzierte Einzelbewertung mündet im Gesamturteil von <strong>C bis A**</strong>.</div></li>
+          <li><span>✍️</span> <div><strong>Weniger Bürokratie:</strong> Deutlich reduzierte Freitextfelder und digitalisierte Bearbeitung ohne starre Papier-Unterschriften.</div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Perspektiven-Filter -->
+  <div class="perspective-bar">
+    <div class="perspective-inner">
+      <div class="perspective-label">
+        👁️ Fokus-Ansicht wählen:
+      </div>
+      <div class="perspective-buttons">
+        <button class="role-btn active" data-role="all">Alle Informationen anzeigen</button>
+        <button class="role-btn" data-role="lehrkraft">👩‍🏫 Fokus: Zu beurteilende Lehrkraft</button>
+        <button class="role-btn" data-role="erst">📋 Fokus: Erstbeurteiler:in (Abteilungs-/Schulleitung)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hauptinhalt -->
+  <main class="main-container" id="mainContent">
+
+    <!-- 1. WAS IST NEU AB 2026? -->
+    <section class="section-block searchable-section" id="neuerungen">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-kicker">Themenbereich 01 · Rechtsgrundlage &amp; Reform</span>
+          <h2 class="section-title">Was ist neu seit dem 1. Januar 2026?</h2>
+          <p class="section-subtitle">Von den alten Beurteilungsrichtlinien (BeurtRL) zur verbindlichen Hamburger Beurteilungsverordnung (BeurtVO)</p>
+        </div>
+      </div>
+
+      <div class="lernziele-box">
+        <h3>🎯 Zielsetzung der Reform in der Freien und Hansestadt Hamburg</h3>
+        <p style="margin-bottom: 10px;">
+          Aufgrund der aktuellen Rechtsprechung des Bundesverwaltungsgerichts mussten wesentliche Vorgaben für dienstliche Beurteilungen durch eine förmliche Rechtsnorm geregelt werden. Gleichzeitig hat die FHH (mit BSB und HIBB) das Verfahren modernisiert, digitalisiert und verschlankt:
+        </p>
+        <ul style="padding-left: 22px; display: grid; gap: 6px;">
+          <li><strong>Einheitlicher Rechtsrahmen:</strong> Die <em>BeurtVO</em> (vom 14.10.2025, HmbGVBl. S. 571) gilt ab 01.01.2026 unmittelbar für alle Beamtinnen und Beamten und wird per Verwaltungsanordnung inhaltsgleich auf <strong>Tarifbeschäftigte</strong> übertragen.</li>
+          <li><strong>Entlastung bei Textfeldern:</strong> Die Anzahl der freien Textbegründungen im Beurteilungsvordruck wurde deutlich reduziert – Begründungen sind gezielt dort gefordert, wo Spitzen- oder Minderleistungen vorliegen.</li>
+          <li><strong>Digitale Abwicklung:</strong> Wegfall starrer handschriftlicher Unterschriftserfordernisse zugunsten eines medienbruchfreien, elektronischen Workflows.</li>
+          <li><strong>Stärkung moderner Anforderungen:</strong> Digitale Kompetenz, Innovationsfähigkeit sowie Sozial- und Diversitätskompetenz sind fest im Kriterienkatalog verankert.</li>
+        </ul>
+      </div>
+
+      <div class="bswi-table-wrap">
+        <table class="bswi-table">
+          <thead>
+            <tr>
+              <th>Merkmal</th>
+              <th>Bisheriges System (Alte BeurtRL)</th>
+              <th>Neues Beurteilungswesen (BeurtVO ab 2026)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Rechtsgrundlage</strong></td>
+              <td>Verwaltungsvorschriften / Richtlinien (BeurtRL-FHH &amp; BeurtRL-Lehrkräfte)</td>
+              <td>Verbindliche Rechtsverordnung (<strong>BeurtVO</strong>) + Praxisleitfaden FHH/BSB/HIBB</td>
+            </tr>
+            <tr>
+              <td><strong>Bewertungsskala (Einzelmerkmale)</strong></td>
+              <td>Klassische Text- bzw. Stufenbeschreibungen (1–5)</td>
+              <td>Siebenstufige Punkteskala von <strong>0 bis 6 Punkten</strong> (untererfüllt / erfüllt / übererfüllt)</td>
+            </tr>
+            <tr>
+              <td><strong>Gesamturteil</strong></td>
+              <td>Stufen / Prädikate nach altem Raster</td>
+              <td>Buchstaben-Skala: <strong>C, B, A, A*, A**</strong> (streng bezogen auf das Statusamt)</td>
+            </tr>
+            <tr>
+              <td><strong>Kompetenzfelder</strong></td>
+              <td>Viele kleinteilige Einzelmerkmale mit hohem Schreibaufwand</td>
+              <td>Gebündelt in <strong>6 Kernkompetenzen</strong> (+ 5 Führungskriterien bei Leitungsfunktionen)</td>
+            </tr>
+            <tr>
+              <td><strong>Form &amp; Bearbeitung</strong></td>
+              <td>Papiergebunden mit mehrfachen Original-Unterschriften</td>
+              <td><strong>Digitalisierte Vordrucke</strong>, reduzierte Freitextfelder, elektronische Zeichnung</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bswi-needtoknow">
+        <h4>⚡ Wichtiger Hinweis zur Übergangsregelung (55+ Beurteilungsverzicht)</h4>
+        <p>
+          Lehrkräfte, die bereits <strong>vor dem 01.01.2026</strong> ab Vollendung des 55. Lebensjahres wirksam auf künftige Regelbeurteilungen verzichtet haben, genießen <strong>Bestandsschutz</strong>. Bei Fragen zum individuellen Status gibt die Schulleitung bzw. Personalabteilung Auskunft.
+        </p>
+      </div>
+    </section>
+
+    <!-- 2. ROLLEN & ZUSTÄNDIGKEITEN -->
+    <section class="section-block searchable-section" id="rollen">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-kicker">Themenbereich 02 · Akteure im Prozess</span>
+          <h2 class="section-title">Rollen &amp; Zuständigkeiten an der BS:WI</h2>
+          <p class="section-subtitle">Wer beurteilt wen? Das Zusammenspiel von Erstbeurteilung, Zweitbeurteilung und Lehrkraft</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <!-- Zu beurteilende Lehrkraft -->
+        <div class="bswi-task role-highlight-lehrkraft">
+          <div class="bswi-task-header">
+            <span>👩‍🏫 Zu beurteilende Lehrkraft</span>
+            <span class="bswi-badge">Beamt:in / Tarif</span>
+          </div>
+          <p style="font-size: 0.88rem; margin-bottom: 10px;">
+            Steht im Mittelpunkt einer transparenten und fairen Standortbestimmung bezogen auf das eigene <strong>Statusamt</strong> (z. B. Studienrätin/Studienrat A13 oder Oberstudienrätin/Oberstudienrat A14).
+          </p>
+          <ul style="padding-left: 18px; font-size: 0.86rem; display: grid; gap: 6px;">
+            <li>Vorbereitung auf den Unterrichtsbesuch und das Beurteilungsgespräch.</li>
+            <li>Einbringen eigener Schwerpunkte, außerunterrichtlicher Aufgaben und Fortbildungen.</li>
+            <li>Recht auf Eröffnung, Besprechung, Kopie und ggf. schriftliche Gegenäußerung zur Personalakte.</li>
+          </ul>
+        </div>
+
+        <!-- Erstbeurteiler:in -->
+        <div class="bswi-task role-highlight-erst">
+          <div class="bswi-task-header">
+            <span>📋 Erstbeurteiler:in</span>
+            <span class="bswi-badge">Schulische Führungskraft</span>
+          </div>
+          <p style="font-size: 0.88rem; margin-bottom: 10px;">
+            An der BS:WI i. d. R. die zuständige <strong>Abteilungsleitung</strong> (Funktionsstelle nach § 96 HmbSchG), die stellvertretende Schulleitung oder die Schulleitung.
+          </p>
+          <ul style="padding-left: 18px; font-size: 0.86rem; display: grid; gap: 6px;">
+            <li>Kennt die Lehrkraft und deren dienstliche Tätigkeit aus <strong>eigener Anschauung</strong>.</li>
+            <li>Führt Unterrichtsbesuche und das verbindliche <strong>Beurteilungsgespräch</strong> durch.</li>
+            <li>Erstellt den vollständigen Beurteilungsentwurf (0–6 Punkte je Kernkompetenz + Gesamturteil).</li>
+            <li><strong>Neu:</strong> Auch <em>Tandem-Beurteilungen</em> bei geteilter Führung sind ausdrücklich verankert.</li>
+          </ul>
+        </div>
+
+        <!-- Zweitbeurteiler:in -->
+        <div class="bswi-task">
+          <div class="bswi-task-header">
+            <span>🏛️ Zweitbeurteiler:in</span>
+            <span class="bswi-badge">Übergeordnete Instanz</span>
+          </div>
+          <p style="font-size: 0.88rem; margin-bottom: 10px;">
+            Nächsthöhere Führungsebene (je nach Zuständigkeit die <strong>Schulleitung</strong> bzw. die zuständige <strong>Schulaufsicht</strong> im HIBB / der BSB).
+          </p>
+          <ul style="padding-left: 18px; font-size: 0.86rem; display: grid; gap: 6px;">
+            <li>Prüft die Erstbeurteilung auf Plausibilität, Schlüssigkeit und Einhaltung einheitlicher Maßstäbe.</li>
+            <li>Gibt eine eigene, frei formulierte Stellungnahme ab und bestätigt (oder modifiziert begründet) das Gesamturteil.</li>
+            <li>Sichert schul- und abteilungsübergreifende Vergleichbarkeit (u. a. über <strong>Beurteilungskonferenzen</strong>).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bswi-info">
+        <h4>💡 Unabhängigkeit &amp; Maßstabstreue (Beurteilungskonferenzen)</h4>
+        <p>
+          Erstbeurteiler:innen sind bei ihrer Einzelbewertung an Recht und Gesetz gebunden und nicht an Einzelweisungen zur konkreten Benotung einer Person. Um jedoch eine faire, schulweit einheitliche Maßstabsbildung sicherzustellen, finden vorab <strong>Beurteilungskonferenzen der Erstbeurteiler:innen</strong> zum Maßstabsabgleich statt.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. ANLÄSSE, INTERVALLE & DRITTBEITRÄGE -->
+    <section class="section-block searchable-section" id="anlaesse">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-kicker">Themenbereich 03 · Zeitpunkte &amp; Sonderfälle</span>
+          <h2 class="section-title">Regelbeurteilung, Anlassbeurteilung &amp; Beurteilungsbeiträge</h2>
+          <p class="section-subtitle">Wann wird beurteilt und wie werden Abordnungen oder Teilbeschäftigungen berücksichtigt?</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="comp-card">
+          <span class="comp-num">📅</span>
+          <h4>1. Regelbeurteilung (4-Jahres-Takt)</h4>
+          <p>
+            Lehrkräfte im Beamtenverhältnis auf Lebenszeit werden regelmäßig im <strong>dynamischen 4-Jahres-Rhythmus</strong> dienstlich beurteilt. Sie dokumentiert kontinuierlich die fachliche Leistung und Befähigung im jeweiligen Statusamt.
+          </p>
+          <div class="comp-tags">
+            <span class="comp-tag">Dynamischer 4-Jahres-Rhythmus</span>
+            <span class="comp-tag">Lebenszeitbeamt:innen</span>
+          </div>
+        </div>
+
+        <div class="comp-card">
+          <span class="comp-num">🚀</span>
+          <h4>2. Anlassbeurteilung (Gleichwertig)</h4>
+          <p>
+            Erfolgt außerhalb des Regelturnus bei konkretem Bedarf – etwa während der <strong>Probezeit</strong> (vor Verbeamtung auf Lebenszeit), bei <strong>Bewerbungen auf Beförderungs- oder Funktionsstellen</strong> (z. B. A14, Abteilungsleitung) oder vor Versetzungen.
+          </p>
+          <div class="comp-tags">
+            <span class="comp-tag">Probezeit</span>
+            <span class="comp-tag">Beförderung / Funktionsstelle</span>
+            <span class="comp-tag">Rechtlich gleichwertig</span>
+          </div>
+        </div>
+
+        <div class="comp-card">
+          <span class="comp-num">🤝</span>
+          <h4>3. Beurteilungsbeiträge (Drittbeiträge)</h4>
+          <p>
+            War eine Lehrkraft im Beurteilungszeitraum teilweise abgeordnet (z. B. ans LI, HIBB oder eine andere Schule) oder hat die Führungskraft gewechselt, wird ein <strong>Beurteilungsbeitrag</strong> eingeholt, damit keine Leistungslücken entstehen.
+          </p>
+          <div class="comp-tags">
+            <span class="comp-tag">Abordnung / LI / HIBB</span>
+            <span class="comp-tag">Führungswechsel</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bswi-needtoknow" style="margin-top: 20px;">
+        <h4>⚡ Neu ab 2026: Vereinfachte Form bei kurzen Beurteilungsbeiträgen</h4>
+        <p>
+          Beträgt der Beschäftigungsumfang bei einer anderen Stelle <strong>weniger als 20 %</strong> der regelmäßigen Arbeitszeit oder dauerte die Tätigkeit dort <strong>weniger als 8 Wochen</strong>, ist kein volles Punkte-Formular erforderlich – es genügt ein <strong>vereinfachter Beurteilungsbeitrag in Textform</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- 4. DIE 6 KERNKOMPETENZEN -->
+    <section class="section-block searchable-section" id="kompetenzen">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-kicker">Themenbereich 04 · Merkmalskatalog der BeurtVO</span>
+          <h2 class="section-title">Die 6 neuen Kernkompetenzen im Überblick</h2>
+          <p class="section-subtitle">Einheitlicher Kriterienkatalog für alle Beschäftigten – übersetzt in den schulischen Alltag an der BS:WI</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <!-- Kompetenz 1 -->
+        <div class="comp-card">
+          <span class="comp-num">1</span>
+          <h4>Analysefähigkeit &amp; Urteilsvermögen</h4>
+          <p>
+            Pädagogische, fachliche und schulorganisatorische Sachverhalte rasch durchdringen, Lernstände diagnostizieren, komplexe Situationen im Schulalltag treffsicher einschätzen und begründete Entscheidungen treffen.
+          </p>
+          <div class="comp-tags">
+            <span class="comp-tag">Lernstandsdiagnose</span>
+            <span class="comp-tag">Problemlösung</span>
+            <span class="comp-tag">Reflexionsfähigkeit</span>
+          </div>
+        </div>
+
+        <!-- Kompetenz 2 -->
+        <div class="comp-card">
+          <span class="comp-num">2</span>
+          <h4>Fachliche Kompetenz</h4>
+          <p>
+            Fundiertes Fachwissen sowie didaktisch-methodische Sicherheit im beruflichen Unterricht. Handlungsorientierte Unterrichtsgestaltung, Lernfeldorientierung und fachgerechte Leistungsbewertung.
+          </p>
+          <div class="comp-tags">
+            <span class="comp-tag">Unterrichtsqualität</span>
+            <span class="comp-tag">Didaktik &amp; Methodik</span>
+            <span class="comp-tag">Berufsbezug</span>
+          </div>
+        </div>
+
+        <!-- Kompetenz 3 -->
+        <div class="comp-card">
+          <span class="comp-num">3</span>
+          <h4>Arbeitsergebnisse</h4>
+          <p>
+            Qualität, Verlässlichkeit und Termintreue bei Unterrichtsvorbereitung, Prüfungsdurchführung (z. B. Kammer-/Abschlussprüfungen), Korrekturen sowie übernommenen schulischen Sonderaufgaben.
+          </p>
+          <div class="comp-tags">
+            <span class="comp-tag">Qualität &amp; Sorgfalt</span>
+            <span class="comp-tag">Prüfungswesen</span>
+            <span class="comp-tag">Zielerreichung</span>
+          </div>
+        </div>
+
+        <!-- Kompetenz 4 -->
+        <div class="comp-card">
+          <span class="comp-num">4</span>
+          <h4>Selbstmanagement</h4>
+          <p>
+            Strukturierte Arbeitsorganisation, eigenverantwortliche Prioritätensetzung, konstruktiver Umgang mit Belastungsspitzen im Schuljahr sowie verlässliche Einhaltung dienstlicher Absprachen.
+          </p>
+          <div class="comp-tags">
+            <span class="comp-tag">Eigenverantwortung</span>
+            <span class="comp-tag">Zeitmanagement</span>
+            <span class="comp-tag">Belastbarkeit</span>
+          </div>
+        </div>
+
+        <!-- Kompetenz 5 -->
+        <div class="comp-card">
+          <span class="comp-num">5</span>
+          <h4>Sozial- &amp; Diversitätskompetenz, Kommunikation</h4>
+          <p>
+            Wertschätzender, vorurteilsbewusster Umgang mit einer heterogenen, internationalen Schülerschaft. Konstruktive Teamarbeit in Bildungsgängen sowie professionelle Kommunikation mit Ausbildungsbetrieben und Eltern.
+          </p>
+          <div class="comp-tags">
+            <span class="comp-tag">Teamarbeit im Bildungsgang</span>
+            <span class="comp-tag">Vielfalt &amp; Inklusion</span>
+            <span class="comp-tag">Duale Partner</span>
+          </div>
+        </div>
+
+        <!-- Kompetenz 6 -->
+        <div class="comp-card">
+          <span class="comp-num">6</span>
+          <h4>Innovations- &amp; Veränderungsfähigkeit, Digitale Kompetenz</h4>
+          <p>
+            Offenheit für Schulentwicklung und neue pädagogische Konzepte. Souveräner, lernförderlicher Einsatz digitaler Medien, Lernplattformen und KI-Werkzeuge im Unterricht und in der Schulorganisation.
+          </p>
+          <div class="comp-tags">
+            <span class="comp-tag">Digitale Bildung</span>
+            <span class="comp-tag">Schulentwicklung</span>
+            <span class="comp-tag">Neu gestärkt ab 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bswi-info" style="margin-top: 22px;">
+        <h4>➕ Zusatzkriterien für Führungskräfte (5 Führungsmerkmale)</h4>
+        <p>
+          Werden Lehrkräfte mit Führungsverantwortung (z. B. Abteilungsleitungen, Schulleitungsmitglieder) beurteilt, kommen <strong>fünf spezifische Führungskriterien</strong> nach dem Hamburger Führungsleitbild hinzu: <em>1. Vorbildfunktion &amp; Haltung, 2. Steuerung &amp; Organisation, 3. Kommunikation &amp; Kooperation in der Führung, 4. Personalentwicklung / Talentmanagement, 5. Change-Management &amp; Gestaltung von Veränderungsprozessen.</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- 5. DAS NEUE BEWERTUNGSSYSTEM (0-6 PUNKTE & GESAMTURTEIL C BIS A**) -->
+    <section class="section-block searchable-section" id="bewertung">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-kicker">Themenbereich 05 · Skala, Statusamt &amp; Gesamturteil</span>
+          <h2 class="section-title">Die neue 7-stufige Punkteskala (0–6) &amp; das Gesamturteil</h2>
+          <p class="section-subtitle">Interaktive Übersicht: Klicke auf eine Punktzahl, um die genaue Bedeutung und Begründungspflicht zu sehen</p>
+        </div>
+      </div>
+
+      <div class="formel-box">
+        <div class="formel-main">Maßstab jeder Bewertung = Anforderungen des jeweiligen Statusamts (z. B. A13 vs. A14)</div>
+        <div class="formel-sub">Wer die hohen Anforderungen seines Statusamts voll und ganz erfüllt, erreicht den Ankerwert von 3 Punkten („Erfüllt die Anforderungen“ → Gesamturteil A).</div>
+      </div>
+
+      <!-- Interactive Scale Buttons -->
+      <div class="scale-selector" role="tablist" aria-label="Punkteskala 0 bis 6">
+        <button class="scale-btn" data-pt="0" onclick="selectScale(0)">
+          <span class="scale-pts">0</span>
+          <span class="scale-zone">Untererfüllt</span>
+        </button>
+        <button class="scale-btn" data-pt="1" onclick="selectScale(1)">
+          <span class="scale-pts">1</span>
+          <span class="scale-zone">Untererfüllt</span>
+        </button>
+        <button class="scale-btn" data-pt="2" onclick="selectScale(2)">
+          <span class="scale-pts">2</span>
+          <span class="scale-zone">Erfüllt (Basis)</span>
+        </button>
+        <button class="scale-btn active" data-pt="3" onclick="selectScale(3)">
+          <span class="scale-pts">3</span>
+          <span class="scale-zone">Erfüllt (Regel)</span>
+        </button>
+        <button class="scale-btn" data-pt="4" onclick="selectScale(4)">
+          <span class="scale-pts">4</span>
+          <span class="scale-zone">Erfüllt (Stark)</span>
+        </button>
+        <button class="scale-btn" data-pt="5" onclick="selectScale(5)">
+          <span class="scale-pts">5</span>
+          <span class="scale-zone">Übererfüllt</span>
+        </button>
+        <button class="scale-btn" data-pt="6" onclick="selectScale(6)">
+          <span class="scale-pts">6</span>
+          <span class="scale-zone">Übererfüllt+</span>
+        </button>
+      </div>
+
+      <!-- Dynamic Detail Panel -->
+      <div class="scale-detail-panel" id="scaleDetailPanel">
+        <div class="scale-detail-header">
+          <span class="scale-detail-badge" id="scaleBadge">3 Punkte</span>
+          <span class="scale-detail-title" id="scaleTitle">Erfüllt die Anforderungen in vollem Umfang (Solider Ankerwert)</span>
+        </div>
+        <p id="scaleDesc" style="margin-bottom: 8px;">
+          Die Leistung entspricht in jeder Hinsicht den hohen professionellen Anforderungen des übertragenen Statusamts. Dies ist der reguläre Referenzwert für eine durchgehend gute, verlässliche Aufgabenerfüllung.
+        </p>
+        <p id="scaleHint" style="font-size: 0.85rem; color: var(--blau-3); font-weight: 600;">
+          ✍️ Hinweis für Erstbeurteiler:innen: Keine gesonderte Einzeltext-Begründung erforderlich (Standard-Erfüllung).
+        </p>
+      </div>
+
+      <!-- Tabelle: Gesamturteil I (C bis A**) -->
+      <h3 style="color: var(--blau-1); margin-bottom: 10px;">Gesamturteil I: Ableitung aus den Einzelbewertungen</h3>
+      <div class="bswi-table-wrap">
+        <table class="bswi-table">
+          <thead>
+            <tr>
+              <th>Gesamturteil</th>
+              <th>Offizielle Bezeichnung (BeurtVO)</th>
+              <th>Punktebild / Orientierungsrahmen</th>
+              <th>Bedeutung für Beförderung / Bewährung</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="font-size: 1.15rem; color: var(--blau-1);">A**</strong></td>
+              <td><strong>Übertrifft die Anforderungen deutlich</strong></td>
+              <td>Überwiegend 5 und 6 Punkte (Spitzenleistungen im Statusamt)</td>
+              <td>Herausragende Eignung für höherwertige Ämter / Funktionsstellen; zwingend fundiert textlich zu begründen.</td>
+            </tr>
+            <tr>
+              <td><strong style="font-size: 1.15rem; color: var(--blau-1);">A*</strong></td>
+              <td><strong>Übertrifft die Anforderungen</strong></td>
+              <td>Schwerpunkt im oberen Bereich (4 bis 5 Punkte)</td>
+              <td>Überdurchschnittliche Leistung; sehr gute Perspektive für Beförderungsstellen und besondere Verantwortung.</td>
+            </tr>
+            <tr>
+              <td><strong style="font-size: 1.15rem; color: var(--blau-1);">A</strong></td>
+              <td><strong>Erfüllt die Anforderungen</strong></td>
+              <td>Schwerpunkt im Bereich 2 bis 4 Punkte (Ankerwert ~3,0)</td>
+              <td>Volle Bewährung im Amt (z. B. Ende der Probezeit) und uneingeschränkt gute dienstliche Leistung.</td>
+            </tr>
+            <tr>
+              <td><strong style="font-size: 1.15rem; color: #B45309;">B</strong></td>
+              <td><strong>Erfüllt die Anforderungen mit Einschränkungen</strong></td>
+              <td>Häufung im Bereich 1 bis 2 Punkte</td>
+              <td>Deutlicher Entwicklungsbedarf in Teilbereichen; gezielte Förder- und Unterstützungsvereinbarungen nötig.</td>
+            </tr>
+            <tr>
+              <td><strong style="font-size: 1.15rem; color: #B91C1C;">C</strong></td>
+              <td><strong>Erfüllt die Anforderungen nicht</strong></td>
+              <td>Überwiegend 0 bis 1 Punkt</td>
+              <td>Anforderungen des Statusamts werden aktuell nicht erreicht; zwingend ausführliche Einzelbegründung erforderlich.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Interaktiver Simulations-Rechner -->
+      <div class="calc-box">
+        <h3 style="color: var(--blau-1); margin-bottom: 6px;">🧮 Interaktiver Orientierungs-Rechner (6 Kernkompetenzen → Gesamturteil)</h3>
+        <p style="font-size: 0.86rem; color: var(--dunkelgrau); margin-bottom: 16px;">
+          Teste unverbindlich, wie sich die Punktzahlen (0–6) in den sechs Kernkompetenzen auf den Punkteschnitt und das abgeleitete Gesamturteil auswirken:
+        </p>
+
+        <div class="calc-row">
+          <span class="calc-label">1. Analysefähigkeit &amp; Urteilsvermögen</span>
+          <input type="range" min="0" max="6" step="1" value="3" class="calc-slider" oninput="updateCalc()">
+          <span class="calc-val">3 Pkt.</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">2. Fachliche Kompetenz (Unterricht &amp; Pädagogik)</span>
+          <input type="range" min="0" max="6" step="1" value="4" class="calc-slider" oninput="updateCalc()">
+          <span class="calc-val">4 Pkt.</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">3. Arbeitsergebnisse</span>
+          <input type="range" min="0" max="6" step="1" value="3" class="calc-slider" oninput="updateCalc()">
+          <span class="calc-val">3 Pkt.</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">4. Selbstmanagement</span>
+          <input type="range" min="0" max="6" step="1" value="3" class="calc-slider" oninput="updateCalc()">
+          <span class="calc-val">3 Pkt.</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">5. Sozial- &amp; Diversitätskompetenz, Kommunikation</span>
+          <input type="range" min="0" max="6" step="1" value="4" class="calc-slider" oninput="updateCalc()">
+          <span class="calc-val">4 Pkt.</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">6. Innovations- &amp; Veränderungsfähigkeit, Digitale Kompetenz</span>
+          <input type="range" min="0" max="6" step="1" value="4" class="calc-slider" oninput="updateCalc()">
+          <span class="calc-val">4 Pkt.</span>
+        </div>
+
+        <div class="calc-result">
+          <div>
+            <div style="font-size: 0.8rem; color: var(--blau-6); text-transform: uppercase; font-weight: 700;">Simuliertes Gesamtergebnis</div>
+            <div id="calcSummaryText" style="font-size: 1.15rem; font-weight: 700; margin-top: 2px;">
+              Durchschnitt: 3,50 Punkte · Erfüllt die Anforderungen (Tendenz oberer Bereich)
+            </div>
+            <div style="font-size: 0.78rem; color: rgba(255,255,255,0.8); margin-top: 4px;">
+              Hinweis: Neben dem rechnerischen Profil würdigt die/der Erstbeurteiler:in stets das Gesamtbild im Statusamt.
+            </div>
+          </div>
+          <div class="calc-grade-pill" id="calcGradePill">A</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ABLAUF DER BEURTEILUNG & BEURTEILUNGSGESPRÄCH -->
+    <section class="section-block searchable-section" id="ablauf">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-kicker">Themenbereich 06 · Prozess &amp; Praxis-Checklisten</span>
+          <h2 class="section-title">Ablauf der Beurteilung &amp; Das Beurteilungsgespräch</h2>
+          <p class="section-subtitle">In 6 klaren Schritten von der Ankündigung bis zur Aufnahme in die Personalakte</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="step-card">
+          <span class="step-num">Schritt 01</span>
+          <h4>Ankündigung &amp; Planung</h4>
+          <p>Information über anstehende Regel- oder Anlassbeurteilung; Abstimmung von Terminen und ggf. Einholung von Beurteilungsbeiträgen.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Schritt 02</span>
+          <h4>Einblick &amp; Unterrichtsbesuch</h4>
+          <p>Unterrichtshospitation(en) durch Erstbeurteiler:in sowie Würdigung der außerunterrichtlichen Arbeit und Teambeiträge an der BS:WI.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Schritt 03</span>
+          <h4>Beurteilungsgespräch</h4>
+          <p>Verbindliches, wertschätzendes Dialoggespräch über Beobachtungen, Leistungen im Beurteilungszeitraum und berufliche Perspektiven.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Schritt 04</span>
+          <h4>Erstbeurteilung (Entwurf)</h4>
+          <p>Digitales Ausfüllen des Vordrucks durch Erstbeurteiler:in (0–6 Punkte + Gesamturteil) und Weiterleitung an die Zweitbeurteilung.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Schritt 05</span>
+          <h4>Zweitbeurteilung</h4>
+          <p>Prüfung, Maßstabswahrung und Stellungnahme durch die Zweitbeurteiler:in (Schulleitung / Schulaufsicht).</p>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Schritt 06</span>
+          <h4>Eröffnung &amp; Personalakte</h4>
+          <p>Bekanntgabe der fertigen Beurteilung (Aushändigung einer Kopie), Gelegenheit zur Gegenäußerung und Aufnahme in die Personalakte.</p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 24px;">
+        <!-- Checkliste für Lehrkräfte -->
+        <div class="bswi-task role-highlight-lehrkraft">
+          <div class="bswi-task-header">
+            <span>✅ Checkliste für zu beurteilende Lehrkräfte</span>
+            <span class="bswi-badge">Vorbereitung</span>
+          </div>
+          <p style="font-size: 0.84rem; color: var(--dunkelgrau);">Hake die Punkte für deine eigene Vorbereitung einfach hier im Browser ab:</p>
+          <ul class="checklist">
+            <li><label><input type="checkbox"> <span><strong>Unterrichtsbesuch abstimmen:</strong> Klasse/Lerngruppe, Termin und Thema rechtzeitig mit der Abteilungsleitung (Erstbeurteiler:in) klären.</span></label></li>
+            <li><label><input type="checkbox"> <span><strong>Eigene Schwerpunkte notieren:</strong> Welche Zusatzaufgaben, Projekte, Bildungsgang-Arbeit oder Prüfungsfunktionen habe ich im Beurteilungszeitraum übernommen?</span></label></li>
+            <li><label><input type="checkbox"> <span><strong>Fortbildungen &amp; Digitales sichten:</strong> Besuchte Fortbildungen und Beispiele für digitalen Unterricht / Innovationen (Kompetenz 6) bereithalten.</span></label></li>
+            <li><label><input type="checkbox"> <span><strong>Abordnungen prüfen:</strong> War ich teilweise am LI, HIBB oder einer anderen Schule tätig? (Hinweis auf Drittbeitrag geben).</span></label></li>
+            <li><label><input type="checkbox"> <span><strong>Entwicklungsziele überlegen:</strong> Welche beruflichen Wünsche (z. B. Funktionsstelle, A14, neue Lernfelder) möchte ich im Gespräch ansprechen?</span></label></li>
+          </ul>
+        </div>
+
+        <!-- Checkliste für Erstbeurteiler:innen -->
+        <div class="bswi-task role-highlight-erst">
+          <div class="bswi-task-header">
+            <span>✅ Checkliste für Erstbeurteiler:innen</span>
+            <span class="bswi-badge">Durchführung</span>
+          </div>
+          <p style="font-size: 0.84rem; color: var(--dunkelgrau);">Qualitätssicherung nach Praxisleitfaden FHH &amp; BeurtVO:</p>
+          <ul class="checklist">
+            <li><label><input type="checkbox"> <span><strong>Beurteilungszeitraum &amp; Statusamt prüfen:</strong> Welches Statusamt (z. B. A13 / A14) bildet den Maßstab? Sind Beurteilungsbeiträge Dritter einzuholen?</span></label></li>
+            <li><label><input type="checkbox"> <span><strong>Eigene Anschauung sichern:</strong> Unterrichtshospitation(en) und Nachbesprechung zeitnah und transparent durchführen.</span></label></li>
+            <li><label><input type="checkbox"> <span><strong>Maßstabsabgleich beachten:</strong> Ergebnisse aus der schulischen Beurteilungskonferenz der Erstbeurteiler:innen berücksichtigen.</span></label></li>
+            <li><label><input type="checkbox"> <span><strong>Begründungsfokus setzen:</strong> Freitextfelder gezielt bei Abweichungen nach oben (5–6 Pkt. / A*, A**) oder unten (0–1 Pkt. / B, C) schlüssig belegen.</span></label></li>
+            <li><label><input type="checkbox"> <span><strong>Fristgerechte Eröffnung:</strong> Beurteilung eröffnen, Gespräch dokumentieren und auf dem Dienstweg weiterleiten.</span></label></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. INTRANET-WEGWEISER, DOKUMENTE & FAQ -->
+    <section class="section-block searchable-section" id="faq">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="section-kicker">Themenbereich 07 · Offizielle Quellen &amp; Antworten</span>
+          <h2 class="section-title">BSB-Intranet-Wegweiser &amp; Häufige Fragen (FAQ)</h2>
+          <p class="section-subtitle">Wo liegen die Original-Vordrucke und was gilt in besonderen Fällen?</p>
+        </div>
+      </div>
+
+      <div class="bswi-info">
+        <h4>📂 Offizieller Pfad zu den Original-Vordrucken im BSB-/FHH-Intranet</h4>
+        <p style="margin-bottom: 8px;">
+          Aus Datenschutz- und Formgründen sind die bearbeitbaren Original-Beurteilungsbögen ausschließlich im geschützten Intranet der Freien und Hansestadt Hamburg (über Dienstgeräte / FHH-Portal) abrufbar:
+        </p>
+        <div class="intranet-path">
+          <span>BSB-Intranet (FHH-Portal)</span>
+          <span class="sep">➔</span>
+          <span>A – Z</span>
+          <span class="sep">➔</span>
+          <span>B</span>
+          <span class="sep">➔</span>
+          <span>Beurteilungen in Schule</span>
+          <span class="sep">➔</span>
+          <span>Beurteilungen von Lehrkräften</span>
+        </div>
+        <p style="font-size: 0.85rem; margin-top: 8px; color: var(--dunkelgrau);">
+          Dort befinden sich: <strong>1. Verordnungstext (BeurtVO)</strong> · <strong>2. Praxisleitfaden zum Beurteilungswesen (Stand 2026)</strong> · <strong>3. Digitaler Beurteilungsvordruck &amp; Merkmalskatalog</strong> · <strong>4. Vorlage für Beurteilungsbeiträge</strong>.
+        </p>
+      </div>
+
+      <h3 style="color: var(--blau-1); margin: 26px 0 14px;">Häufig gestellte Fragen (FAQ) aus dem Kollegium</h3>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Gilt das neue Beurteilungswesen auch für tarifbeschäftigte (angestellte) Lehrkräfte?</summary>
+          <div class="faq-body">
+            <strong>Ja.</strong> Während die Beurteilungsverordnung (BeurtVO) unmittelbar für Beamtinnen und Beamte gilt, wurden die Grundsätze, die 6 Kernkompetenzen und die Bewertungssystematik über eine begleitende Verwaltungsanordnung analog auf Tarifbeschäftigte übertragen.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Warum ist mit 3 Punkten („Erfüllt die Anforderungen“) bereits ein gutes Ergebnis erreicht?</summary>
+          <div class="faq-body">
+            Im neuen Hamburger System ist die Punktzahl <strong>3</strong> kein mittelmäßiges „Befriedigend“, sondern bestätigt, dass die hohen beruflichen und pädagogischen Anforderungen des jeweiligen Statusamts (z. B. Studienrat A13) <strong>in vollem Umfang erfüllt</strong> werden. Daraus resultiert das Gesamturteil <strong>A („Erfüllt die Anforderungen“)</strong>. Die Stufen 5 und 6 (bzw. A* und A**) sind für Leistungen vorgesehen, die über die regulären Anforderungen des Statusamts deutlich hinausgehen.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Was bedeutet „Orientierung am Statusamt“ konkret nach einer Beförderung (z. B. von A13 nach A14)?</summary>
+          <div class="faq-body">
+            Jede Beurteilung misst die Leistung an den Anforderungen des <strong>aktuell innegehabten Statusamts</strong>. Nach einer Beförderung nach A14 steigen die statusamtsbezogenen Erwartungen (z. B. an Koordinations-, Beratungs- oder Entwicklungsaufgaben). Es ist daher völlig normal und systemkonform, dass eine Lehrkraft im neuen, höheren Statusamt zunächst wieder im Bereich „Erfüllt die Anforderungen“ (A) eingestuft wird, auch wenn sie zuvor im niedrigeren Amt A13 ein Spitzenprädikat (A* / A**) hatte.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Was kann ich tun, wenn ich mit meiner Beurteilung nicht einverstanden bin?</summary>
+          <div class="faq-body">
+            Im Rahmen der Eröffnung wird die Beurteilung ausführlich besprochen. Jede beurteilte Person hat das Recht, eine <strong>schriftliche Gegenäußerung</strong> abzugeben, die zusammen mit der Beurteilung zur Personalakte genommen wird. Zudem besteht die Möglichkeit, ein Überprüfungsverfahren (Abhilfeprüfung) anzustoßen bzw. sich durch den örtlichen Personalrat (PR) der BS:WI beraten zu lassen.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Wie wirkt sich Teilzeit oder Elternzeit auf meine dienstliche Beurteilung aus?</summary>
+          <div class="faq-body">
+            Teilzeitbeschäftigung sowie Inanspruchnahme von Elternzeit oder Pflegezeiten dürfen sich <strong>nicht nachteilig</strong> auf die dienstliche Beurteilung auswirken. Bewertet wird die Qualität der geleisteten Arbeit im Verhältnis zum individuellen Stundenumfang (Quantität nur im Rahmen des anteiligen Deputats).
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Offizieller BS:WI Footer (gemäß bswi-docs Vorgabe nur mit BS:WI) -->
+  <footer class="bswi-footer">
+    <div class="bswi-footer-inner">
+      <div class="bswi-footer-top">
+        <div class="footer-author">BS:WI – Berufliche Schule für Wirtschaft und Internationales</div>
+        <div class="footer-claim">Kompetent Zukunft Gestalten</div>
+      </div>
+      <div class="bswi-footer-bottom">
+        <div>
+          Hinrichsenstraße 35 · 20535 Hamburg · Tel: +49 40 428 976 - 0 · <a href="https://www.bswi.hamburg" target="_blank" rel="noopener">www.bswi.hamburg</a>
+        </div>
+        <div>
+          Stand: BeurtVO Hamburg (01/2026) · <a href="index.html">Zurück zur Repository-Übersicht</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 1. Daten für den interaktiven Punkteskala-Explorer (0 bis 6 Punkte)
+    const scaleData = {
+      0: {
+        badge: "0 Punkte · Untererfüllt",
+        title: "Erfüllt die Anforderungen nicht",
+        desc: "Die gezeigten Leistungen weisen erhebliche Mängel auf und genügen den Mindestanforderungen des Statusamts derzeit nicht.",
+        hint: "✍️ Zwingend ausführliche textliche Einzelbegründung im Beurteilungsvordruck erforderlich."
+      },
+      1: {
+        badge: "1 Punkt · Untererfüllt",
+        title: "Erfüllt die Anforderungen mit deutlichen Einschränkungen",
+        desc: "Die Anforderungen des Statusamts werden nur teilweise erreicht; es besteht erkennbarer Unterstützungs- und Entwicklungsbedarf.",
+        hint: "✍️ Textliche Begründung und konkrete Hinweise für Entwicklungsmaßnahmen erforderlich."
+      },
+      2: {
+        badge: "2 Punkte · Erfüllt (Basis)",
+        title: "Erfüllt die Anforderungen im Wesentlichen / grundlegend",
+        desc: "Die übertragenen Aufgaben im Statusamt werden im Grundsatz ordnungsgemäß erledigt, in einzelnen Teilaspekten zeigen sich noch kleinere Schwankungen.",
+        hint: "✍️ Standardbereich („Erfüllt“) – bei Abweichung vom Gesamtbild kurz erläutern."
+      },
+      3: {
+        badge: "3 Punkte · Erfüllt (Regelwert)",
+        title: "Erfüllt die Anforderungen in vollem Umfang (Solider Ankerwert)",
+        desc: "Die Leistung entspricht in jeder Hinsicht den hohen professionellen Anforderungen des übertragenen Statusamts. Dies ist der reguläre Referenzwert für eine durchgehend gute, verlässliche Aufgabenerfüllung.",
+        hint: "✍️ Keine gesonderte Einzeltext-Begründung erforderlich (Standard-Erfüllung)."
+      },
+      4: {
+        badge: "4 Punkte · Erfüllt (Starker Bereich)",
+        title: "Erfüllt die Anforderungen über dem Durchschnitt",
+        desc: "Die Aufgaben im Statusamt werden durchgehend souverän, sehr selbstständig und oft mit überdurchschnittlicher Qualität bewältigt.",
+        hint: "✍️ Übergang zum gehobenen Leistungsbereich – stützt ein starkes A bzw. bei Häufung ein A*."
+      },
+      5: {
+        badge: "5 Punkte · Übererfüllt",
+        title: "Übertrifft die Anforderungen des Statusamts",
+        desc: "Die Lehrkraft erbringt im jeweiligen Kompetenzfeld regelmäßig Leistungen, die über die Erwartungen des Statusamts deutlich hinausgehen und Impulse für Bildungsgang oder Schule setzen.",
+        hint: "✍️ Textliche Begründung mit konkreten Leistungsbeispielen erforderlich."
+      },
+      6: {
+        badge: "6 Punkte · Übererfüllt (Spitzenwert)",
+        title: "Übertrifft die Anforderungen des Statusamts in herausragender Weise",
+        desc: "Außergewöhnliche Spitzenleistung, die im Kollegium und über den eigenen Aufgabenbereich hinaus Maßstäbe setzt.",
+        hint: "✍️ Zwingend fundierte, nachvollziehbare Einzelbegründung im Formular erforderlich."
+      }
+    };
+
+    function selectScale(pt) {
+      document.querySelectorAll('.scale-btn').forEach(btn => {
+        btn.classList.toggle('active', Number(btn.dataset.pt) === pt);
+      });
+      const info = scaleData[pt];
+      document.getElementById('scaleBadge').textContent = info.badge;
+      document.getElementById('scaleTitle').textContent = info.title;
+      document.getElementById('scaleDesc').textContent = info.desc;
+      document.getElementById('scaleHint').textContent = info.hint;
+    }
+
+    // 2. Interaktiver Orientierungs-Rechner
+    function updateCalc() {
+      const sliders = document.querySelectorAll('.calc-slider');
+      const vals = document.querySelectorAll('.calc-val');
+      let sum = 0;
+      sliders.forEach((s, idx) => {
+        const v = Number(s.value);
+        sum += v;
+        vals[idx].textContent = v + " Pkt.";
+      });
+      const avg = sum / sliders.length;
+      let grade = "A";
+      let text = "";
+
+      if (avg >= 5.0) {
+        grade = "A**";
+        text = "Übertrifft die Anforderungen deutlich (Spitzenprofil)";
+      } else if (avg >= 4.15) {
+        grade = "A*";
+        text = "Übertrifft die Anforderungen";
+      } else if (avg >= 2.15) {
+        grade = "A";
+        text = "Erfüllt die Anforderungen vollumfänglich";
+      } else if (avg >= 1.15) {
+        grade = "B";
+        text = "Erfüllt die Anforderungen mit Einschränkungen";
+      } else {
+        grade = "C";
+        text = "Erfüllt die Anforderungen derzeit nicht";
+      }
+
+      document.getElementById('calcGradePill').textContent = grade;
+      document.getElementById('calcSummaryText').textContent =
+        `Durchschnitt: ${avg.toFixed(2).replace('.', ',')} Punkte · ${text}`;
+    }
+
+    // 3. Fokus-Ansicht (Rollen-Filter)
+    document.querySelectorAll('.role-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const role = btn.dataset.role;
+        document.body.classList.remove('filter-erst', 'filter-lehrkraft');
+        if (role === 'erst') document.body.classList.add('filter-erst');
+        if (role === 'lehrkraft') document.body.classList.add('filter-lehrkraft');
+      });
+    });
+
+    // 4. Live-Volltextsuche über alle Themenblöcke
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      document.querySelectorAll('.searchable-section').forEach(sec => {
+        if (!query) {
+          sec.classList.remove('hidden-search');
+          return;
+        }
+        const match = sec.innerText.toLowerCase().includes(query);
+        sec.classList.toggle('hidden-search', !match);
+      });
+    });
+  </script>
+</body>
+</html>
